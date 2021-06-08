@@ -2,11 +2,26 @@
   "name": "landingpage-norway",
   "version": "0.0.0",
   "scripts": {
+    "css:autoprefixer": "postcss -u autoprefixer -r style.css",
+    "css:minify": "minify style.css > dist/style.css",
+    "build:html": "html-minifier --collapse-whitespace --remove-comments --remove-redundant-attributes --remove-script-type-attributes --remove-tag-whitespace --use-short-doctype --minify-css true --minify-js true index.html > dist/index.html",
+    "build:css": "run-s css:*",
+    "build:js": "minify app.js > dist/app.js",
+    "build:images": "imagemin images/**/* --out-dir=dist/images",
+    "clean": "rimraf dist",
     "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "build": "npm run clean && mkdir -p dist/src/images && run-p build:*"
   },
   "devDependencies": {
-    "vite": "^2.3.4"
+    "autoprefixer": "^10.2.6",
+    "html-minifier": "^4.0.0",
+    "imagemin-cli": "^3.0.0",
+    "minify": "^7.0.2",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "postcss-cli": "^8.3.1",
+    "rimraf": "^2.7.1",
+    "vite": "^2.3.5"
   }
 }
